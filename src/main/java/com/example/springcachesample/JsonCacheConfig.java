@@ -14,8 +14,11 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
+ * @author 李佳明
+ * @date 2017-10.28
+ */
 @Profile("json")
 @Configuration
 public class JsonCacheConfig extends CachingConfigurerSupport {
