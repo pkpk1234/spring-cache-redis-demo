@@ -39,7 +39,7 @@ public class VerySlowService {
         return allPerson;
     }
 
-    @Cacheable(cacheNames = "personCache", key = "#id")
+    @Cacheable(cacheNames = "personCache", key = "{#root.methodName,#id}")
     public Person getPersonById(Long id) {
         log.info("Cache not hit,load from db.");
         long start = System.currentTimeMillis();
@@ -60,7 +60,7 @@ public class VerySlowService {
      * @param newPerson
      * @return
      */
-    @CachePut(cacheNames = {"personCache"}, key = "#id")
+    @CachePut(cacheNames = {"personCache"}, key = "{#root.methodName,#id}")
     public Person updatePerson(Long id, Person newPerson) {
         return this.personRepostroy.save(newPerson);
     }

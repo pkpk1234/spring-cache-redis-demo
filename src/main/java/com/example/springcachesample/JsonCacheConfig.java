@@ -25,7 +25,7 @@ public class JsonCacheConfig extends CachingConfigurerSupport {
 		RedisTemplate redisTemplate = new RedisTemplate();
 		redisTemplate.setConnectionFactory(redisConnectionFactory);
 		GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
-		redisTemplate.setKeySerializer(new StringRedisSerializer());
+		redisTemplate.setKeySerializer(new MyStringRedisSerializer());
 		redisTemplate.setValueSerializer(genericJackson2JsonRedisSerializer);
 		return redisTemplate;
 	}
@@ -35,10 +35,10 @@ public class JsonCacheConfig extends CachingConfigurerSupport {
 		RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
 		// 设置默认过期时间为60秒
 		cacheManager.setDefaultExpiration(60);
-        Map<String, Long> map = new HashMap<>();
-        // 设置demo~keys过期时间为5秒
-        map.put("demo~keys",5L);
-        cacheManager.setExpires(map);
+		Map<String, Long> map = new HashMap<>();
+		// 设置demo~keys过期时间为5秒
+		map.put("demo~keys", 5L);
+		cacheManager.setExpires(map);
 		return cacheManager;
 	}
 
