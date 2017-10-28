@@ -12,6 +12,11 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
+ * 设置KeyGenerator，key值为className+methodName+参数值列表
+ * @author 李佳明
+ * @date 2017-10-28
+ */
 @Profile("mykey")
 @Configuration
 public class MyKeyGeneratorCacheConfig extends CachingConfigurerSupport {
@@ -26,6 +31,7 @@ public class MyKeyGeneratorCacheConfig extends CachingConfigurerSupport {
 
 	@Override
 	public CacheManager cacheManager() {
+		//设置key的序列化方式为String
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 		RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
 		// 设置默认过期时间为60秒
@@ -33,6 +39,10 @@ public class MyKeyGeneratorCacheConfig extends CachingConfigurerSupport {
 		return cacheManager;
 	}
 
+	/**
+	 * key值为className+methodName+参数值列表
+	 * @return
+	 */
 	@Override
 	public KeyGenerator keyGenerator() {
 		return new KeyGenerator() {
